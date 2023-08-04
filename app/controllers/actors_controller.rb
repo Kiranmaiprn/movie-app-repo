@@ -1,29 +1,40 @@
 class ActorsController < ApplicationController
-    before_action :set_actor
+    before_action :set_actor, only: %i[show update destroy]
     def index
         @actors=@movie.actors
         render json: @actors
     end
+   
     def show
-        @actor=@movie.actors.find(params[:id])
         render json: @actor
     end
+    
     def create
         @actor=@movie.actors.create(actor_params)
         @actor.save
         render json: @actor
     end
+   
     def update
-        @actor=@movie.actors.update(actor_params)
+        @actor.update(actor_params)
         @actor.save
         render json: @actor
     end
-    private
-    def actor_params
-        params.require(:actors).permit(:name, :role)
+
+    def destroy
+        @actor.destroy
+        redirect_to action: "index"
     end
+    
+    private
+    
+    def actor_params
+        params.require(:actor).permit(:name, :role)
+    end
+    
     def set_actor
-        @movie=Movie.find(params[:movie_id])
+        @movie=Movie.find_by(id: params[:movie_id])
+        @actor=@movie.actors.find(params[:id])
     end
 
 
