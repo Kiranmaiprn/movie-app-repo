@@ -1,9 +1,11 @@
 class Addreversible < ActiveRecord::Migration[7.0]
   def change
     reversible do |dir|
-      change_table :movies do |t|
-        dir.up {t.change :description, :text}
-        dir.down {t.change :description, :string}
+      dir.up do
+        change_column :movies, :description, :text
+      end
+      dir.down do 
+        change_column :movies, :description, :string
       end
     end
   end

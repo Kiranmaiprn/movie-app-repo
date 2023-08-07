@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+10.times do |k|
+    puts "addng #{k}"
+    Movie.create(title: "Movie#{k}", description: "description of movie #{k}", release_year: 2020, rating: 4.5,status: "public")
+  end

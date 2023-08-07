@@ -1,8 +1,12 @@
 class Movie < ApplicationRecord
     has_many :actors, dependent: :destroy
-    validates :title, presence: true, uniqueness: true, format: {with: /\A[a-zA-Z]+\z/, message: "only allows letters"}
+    has_many :comments, dependent: :destroy
+    validates :title, presence: true, uniqueness: true, format: {with: /\S\A[a-zA-Z]+\z/, message: "only allows letters"}
     validates :description, length: {minimum: 10, maximum: 1000}
     validates :release_year, numericality: true
+    
+    
+    include Visible
 
 
 
