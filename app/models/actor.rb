@@ -1,4 +1,5 @@
 class Actor < ApplicationRecord
-  belongs_to :movie
-  validates :name, uniqueness: {scope: :movie_id, message:"actor name must be unique"}
+  has_many :movie_actors
+  has_many :actors, through: :movie_actors
+  validates_presence_of :name
 end
